@@ -1,0 +1,22 @@
+{
+  "name": "hapi-neo4j-app",
+  "version": "1.0.0",
+  "description": "### happi.js server neo4j database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kharazzoro/happiJs-Neo4j-App-App-Practice.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kharazzoro/happiJs-Neo4j-App-App-Practice/issues"
+  },
+  "homepage": "https://github.com/kharazzoro/happiJs-Neo4j-App-App-Practice#readme",
+  "dependencies": {
+    "hapi": "^17.3.1"
+  }
+}
