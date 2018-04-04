@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/kharazzoro/happiJs-Neo4j-App-App-Practice#readme",
   "dependencies": {
-    "hapi": "^17.3.1"
+    "hapi": "^17.3.1",
+    "inert": "^5.1.0",
+    "nodemon": "^1.17.3"
   }
 }
