@@ -52,7 +52,7 @@ const init = async () => {
         path: '/',
         handler: (request, h) => {
     
-            return h.file('./public/pages/hello.html',{});
+            return h.file('./public/pages/hello.html');
         }
     });
 
@@ -60,8 +60,7 @@ const init = async () => {
         method: 'GET',
         path: '/main',
         handler: (request, h) => {
-    
-            return h.view('main')
+            return h.view('main',{msg:'Handlebars Tamplet'})
         }
     })
 
