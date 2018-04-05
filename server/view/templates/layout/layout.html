@@ -2,17 +2,77 @@
 <html>
 
 <head>
-    <title>
-        Page
-    </title>
-
+    <link rel='stylesheet' href='/stylesheet/style.css' />
+    <title>Page</title>
 </head>
 
+<style>
+
+    *{
+        padding:0px;
+        margin: 0px;
+    }
+
+    nav {
+        display: flex;
+        background:rebeccapurple
+    }
+
+    nav ul {
+        display: flex;
+        border: solid grey px;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0px;
+        width: 100%;
+        
+    }
+
+    nav li {
+        list-style: none;
+        padding: 10px;
+    }
+
+    nav a{
+        color:white;
+        font-size: 1.1em;
+        text-decoration: none;
+    }
+
+    footer{
+        text-align: center;
+    }
+</style>
 
 <body>
-    <h1>Header</h1>
-        {{{content}}}
-    <h1>Footer</h1>
- </body>
+    <header>
+        <nav> 
+            <ul>
+                <a href="/">
+                    <li>home</li>
+                </a>
+                <a href="/service">
+                    <li>Service</li>
+                </a>
+                <a href="branches">
+                    <li>Branch</li>
+                </a>
+                <a href="contact">
+                    <li>Contact</li>
+                </a>
+            </ul>
 
-</html> 
+        </nav>
+    </header>
+
+    <img src="/images/hapi.jpg"  />
+
+    {{{content}}}
+
+    <footer>Footer</footer>
+
+</body>
+
+</html>
