@@ -17,11 +17,33 @@ const server = Hapi.server({
     }
 });
 
+
+
 const init = async () => {
     await server.register(require('vision'));
     await server.register(require('inert'));
 
-   
+    await server.register({
+        plugin: require('hapi-pino'),
+        options: {
+            prettyPrint: true,
+            logEvents: ['response']
+        }
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/{name}',
+        handler: (request, h) => {
+    
+            request.log(['a', 'name'], "Request name");
+            // or
+            // request.logger.info('In handler %s', request.path);
+    
+            return `Hello, ${encodeURIComponent(request.params.name)}!`;
+        }
+    });
+    
     server.views({
         engines: {
             html: require('handlebars')
@@ -58,37 +80,10 @@ const init = async () => {
             }
         }
     });
-
-    // server.route({
-    //     method: 'GET',
-    //     path: '/images/hapi.jpg',
-    //     handler: {
-    //         file: {
-    //             path: 'images/hapi.jpg',
-    //             filename: 'hapi.jpg', // override the filename in the Content-Disposition header
-    //             mode: 'attachment', // specify the Content-Disposition is an attachment
-    //          }
-    //     }
-    // });
-
-
-    // server.route({
-    //     method: 'GET',
-    //     path: '/{param*}',
-    //     handler: {
-    //         directory: {
-    //             path: 'public/images/{param*}',
-    //             listing: true
-    //         }
-    //     }
-    // });
-        
+  
     server.route({
         method: 'GET',
         path: '/',
-        // handler: {view:{
-        //     template: 'main'
-        // }}
         handler:(req,h)=>{
              return h.view('index')
         }
@@ -127,15 +122,7 @@ const init = async () => {
         }
     });
  
-    
-    server.route({
-        method: 'GET',
-        path: '/{name}',
-        handler: (request, h) => {
-    
-            return 'Hello, ' + encodeURIComponent(request.params.name) + '!';
-        }
-    });
+
 
     await server.start();
 
