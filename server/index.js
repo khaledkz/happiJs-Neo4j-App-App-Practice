@@ -3,8 +3,9 @@
 const Path = require('path');
 const Hapi = require('hapi');
 const Hoek = require('hoek');
+const Joi = require('joi');
 
- 
+
 
 
 const server = Hapi.server({
@@ -22,7 +23,7 @@ const server = Hapi.server({
 const init = async () => {
     await server.register(require('vision'));
     await server.register(require('inert'));
-
+ 
     await server.register({
         plugin: require('hapi-pino'),
         options: {
@@ -35,27 +36,35 @@ const init = async () => {
         method: 'GET',
         path: '/{name}',
         handler: (request, h) => {
-    
+
             request.log(['a', 'name'], "Request name");
             // or
             // request.logger.info('In handler %s', request.path);
-    
+
             return `Hello, ${encodeURIComponent(request.params.name)}!`;
         }
+        ,
+        options: {
+            validate: {
+                params: {
+                    name: Joi.string().min(3).max(101)
+                }
+            }
+        }
     });
-    
+
     server.views({
         engines: {
             html: require('handlebars')
         },
         relativeTo: __dirname,
-        layout:true,
+        layout: true,
         path: './view/templates',
         layoutPath: './view/templates/layout',
-     });
+    });
 
 
-     server.route({
+    server.route({
         method: 'GET',
         path: '/{p*}',
         handler: {
@@ -68,7 +77,7 @@ const init = async () => {
     });
 
 
-     server.route({
+    server.route({
         method: 'GET',
         path: '/stylesheet/style.css',
         handler: {
@@ -80,12 +89,12 @@ const init = async () => {
             }
         }
     });
-  
+
     server.route({
         method: 'GET',
         path: '/',
         handler:(req,h)=>{
-             return h.view('index')
+            return h.view('index')
         }
     });
 
@@ -93,7 +102,7 @@ const init = async () => {
         method: 'GET',
         path: '/service',
         handler:(req,h)=>{
-             return h.view('service')
+            return h.view('service')
         }
     });
 
@@ -101,7 +110,7 @@ const init = async () => {
         method: 'GET',
         path: '/contact',
         handler:(req,h)=>{
-             return h.view('contact')
+            return h.view('contact')
         }
     });
 
@@ -109,7 +118,7 @@ const init = async () => {
         method: 'GET',
         path: '/branches',
         handler:(req,h)=>{
-             return h.view('branches')
+            return h.view('branches')
         }
     });
 
@@ -117,11 +126,11 @@ const init = async () => {
         method: 'GET',
         path: '/file',
         handler: (request, h) => {
-    
+
             return h.file('./pages/hello.html');
         }
     });
- 
+
 
 
     await server.start();
